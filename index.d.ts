@@ -446,6 +446,11 @@ declare module 'binance-api-node' {
     TRUE = 'TRUE',
   }
   
+  export const enum LendingProductRedemptionType {
+    FAST = 'FAST',
+    NORMAL = 'NORMAL',
+  }
+  
   export interface ApiPermission {
     ipRestrict: boolean
     createTime: number
@@ -494,7 +499,7 @@ declare module 'binance-api-node' {
     redeemLendingProduct(options: { 
       productId: string; 
       amount: number,
-      type: string, 
+      type?: LendingProductRedemptionType = 'FAST', 
       recvWindow?: number
     }): Promise<any>
     lendingProductList(options?:{

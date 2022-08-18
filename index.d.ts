@@ -435,6 +435,17 @@ declare module 'binance-api-node' {
     CROSSED = 'CROSSED',
   }
 
+  export const enum LendingProductType {
+    SUBSCRIBABLE = 'SUBSCRIBABLE',
+    UNSUBSCRIBABLE = 'UNSUBSCRIBABLE',
+    ALL = 'ALL'
+  }
+
+  export const enum LendingProductFeaturedType {
+    ALL = 'ALL',
+    TRUE = 'TRUE',
+  }
+  
   export interface ApiPermission {
     ipRestrict: boolean
     createTime: number
@@ -448,7 +459,23 @@ declare module 'binance-api-node' {
     enableSpotAndMarginTrading: boolean
     tradingAuthorityExpirationTime: number
   }
-
+  
+  export interface LendingProduct {
+    asset: string,
+    avgAnnualInterestRate: number,
+    tierAnnualInterestRate: any,
+    canPurchase: boolean,
+    canRedeem: boolean,
+    dailyInterestPerThousand: number,
+    featured: boolean,
+    minPurchaseAmount: number,
+    productId: string,
+    purchasedAmount: number,
+    status: string,
+    upLimit: number,
+    upLimitPerUser: number,
+  }
+  
   export interface Binance {
     getInfo(): GetInfo
     accountInfo(options?: { useServerTime: boolean }): Promise<Account>
@@ -464,6 +491,19 @@ declare module 'binance-api-node' {
     book(options: { symbol: string; limit?: number }): Promise<OrderBook>
     exchangeInfo(): Promise<ExchangeInfo>
     lendingAccount(options?: { useServerTime: boolean }): Promise<LendingAccount>
+    redeemLendingProduct(options: { 
+      productId: string; 
+      amount: number,
+      type: string, 
+      recvWindow?: number
+    }): Promise<any>
+    lendingProductList(options?:{
+      status? : LendingProductStatus = 'ALL',
+      featured? : LendingProductFeaturedType = 'ALL',
+      current? : number = 1,
+      size? : number = 100,
+      recvWindow? : number,
+    }): Promise<LendingProduct>
     fundingWallet(options?: {
       asset?: string
       needBtcValuation?: booleanString

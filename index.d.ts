@@ -496,6 +496,13 @@ declare module 'binance-api-node' {
     book(options: { symbol: string; limit?: number }): Promise<OrderBook>
     exchangeInfo(): Promise<ExchangeInfo>
     lendingAccount(options?: { useServerTime: boolean }): Promise<LendingAccount>
+    
+    userSpotAssets(options?: { 
+      asset?: string,
+      needBtcValuation?: boolean=false,
+      recvWindow?: number, 
+    }): Promise<UserAsset[]>
+
     redeemLendingProduct(options: { 
       productId: string; 
       amount: number,
@@ -508,7 +515,7 @@ declare module 'binance-api-node' {
       current? : number = 1,
       size? : number = 100,
       recvWindow? : number,
-    }): Promise<LendingProduct>
+    }): Promise<LendingProduct[]>
     fundingWallet(options?: {
       asset?: string
       needBtcValuation?: booleanString
@@ -2162,6 +2169,16 @@ declare module 'binance-api-node' {
     tradeEnabled: boolean
     transferEnabled: boolean
     userAssets: CrossAsset[]
+  }
+
+  export interface UserAsset {
+    asset: string
+    free: number
+    locked: number
+    freeze: number
+    withdrawing: number
+    ipoable: number,
+    btcValuation: number
   }
 
   export interface CrossAsset {

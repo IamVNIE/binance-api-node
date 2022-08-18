@@ -472,6 +472,9 @@ export default opts => {
     redeemLendingProduct: function redeemLendingProduct(payload) {
       return privCall('/sapi/v1/lending/daily/redeem', payload, 'POST');
     },
+    userSpotAssets: function userSpotAssets(payload) {
+      return privCall('/sapi/v3/asset/getUserAsset', payload);
+    },
     fundingWallet: payload => privCall('/sapi/v1/asset/get-funding-asset', payload, 'POST'),
     apiPermission: payload => privCall('/sapi/v1/account/apiRestrictions', payload),
   }

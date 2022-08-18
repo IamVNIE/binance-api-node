@@ -466,6 +466,12 @@ export default opts => {
     getMultiAssetsMargin: payload => privCall('/fapi/v1/multiAssetsMargin', payload),
     setMultiAssetsMargin: payload => privCall('/fapi/v1/multiAssetsMargin', payload, 'POST'),
     lendingAccount: payload => privCall('/sapi/v1/lending/union/account', payload),
+    lendingProductList: function lendingProductList(payload){
+      return privCall('/sapi/v1/lending/daily/product/list', payload);
+    },
+    redeemLendingProduct: function redeemLendingProduct(payload) {
+      return privCall('/sapi/v1/lending/daily/redeem', payload, 'POST');
+    },
     fundingWallet: payload => privCall('/sapi/v1/asset/get-funding-asset', payload, 'POST'),
     apiPermission: payload => privCall('/sapi/v1/account/apiRestrictions', payload),
   }
